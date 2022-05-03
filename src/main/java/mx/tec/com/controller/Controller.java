@@ -28,9 +28,9 @@ import mx.tec.com.vo.ExpenseVO;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/")
-@Validated
+//@Validated
 public class Controller {
-	private static final Logger log = LoggerFactory.getLogger(Controller.class);
+	//private static final Logger log = LoggerFactory.getLogger(Controller.class);
 	
 	/*
 	 * Reference to the Expense Manager
@@ -39,7 +39,7 @@ public class Controller {
 	private ExpenseManager expense_manager;
 	
 	@PostMapping("/expense")
-	public ResponseEntity<String> addExpense(@RequestBody ExpenseVO expense) {
+	public ResponseEntity<ExpenseVO> addExpense(@RequestBody ExpenseVO expense) {
 		return new ResponseEntity<>(expense_manager.addExpense(expense), HttpStatus.OK);
 	}
 	
