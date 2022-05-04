@@ -28,8 +28,8 @@ import mx.tec.com.vo.ExpenseVO;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/")
-//@Validated
-public class Controller {
+@Validated
+public class ExpenseController {
 	//private static final Logger log = LoggerFactory.getLogger(Controller.class);
 	
 	/*
