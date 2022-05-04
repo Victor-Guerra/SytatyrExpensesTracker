@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import mx.tec.com.vo.ExpenseVO;
-
 @Entity
 public class User {
 	
