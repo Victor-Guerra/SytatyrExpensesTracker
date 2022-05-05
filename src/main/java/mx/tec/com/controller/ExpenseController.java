@@ -67,6 +67,7 @@ public class ExpenseController {
 	
 	@GetMapping("/day/{user_id}")
 	public ResponseEntity<List<ExpenseVO>> viewExpensesToday(@PathVariable(value = "user_id") @Min(value = 0, message="User id must be positive.") Long user_id) {
+		
 		return new ResponseEntity<>(expense_manager.viewExpensesToday(user_id), HttpStatus.OK);
 	}
 	
