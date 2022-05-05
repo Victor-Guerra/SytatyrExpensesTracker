@@ -13,6 +13,7 @@ import mx.tec.com.entity.User;
 import mx.tec.com.mapper.ExpenseMapper;
 import mx.tec.com.mapper.UserMapper;
 import mx.tec.com.repository.ExpenseRepository;
+import mx.tec.com.repository.UserRepository;
 import mx.tec.com.vo.ExpenseVO;
 import mx.tec.com.vo.UserVO;
 
@@ -20,6 +21,8 @@ import mx.tec.com.vo.UserVO;
 public class ExpenseDAO {
 	@Resource
 	private ExpenseRepository expenseRepo;
+	@Resource
+	private UserRepository userRepo;
 	
 	@Resource
 	private ExpenseMapper expenseMapper;
@@ -34,18 +37,25 @@ public class ExpenseDAO {
 	}
 	
 	public ExpenseVO update(ExpenseVO expense, Long id) {
-		Optional<ExpenseVO> old_exp = expenseMapper.convertToOptionalVO(expenseRepo.findById(id));
+		Optional<Expense> old_exp = (expenseRepo.findById(id));
+		
 		if (old_exp.isPresent()) {
-			old_exp.get().setAmount(expense.getAmount());
-			old_exp.get().setCategory(expense.getCategory());
-			old_exp.get().setDate(expense.getDate());
-			old_exp.get().setMethod(expense.getMethod());
-			old_exp.get().setNotes(expense.getNotes());
-			old_exp.get().setReason(expense.getReason());
-			old_exp.get().setRecipient(expense.getRecipient());
-			//old_exp.get().setUser_id(expense.getUser_id());
+			Long user_id = old_exp.get().getUser().getId();
+			
+			Optional<User> user = userRepo.findById(user_id);
+			if(user.isPresent()) {
+				old_exp.get().setAmount(expense.getAmount());
+				old_exp.get().setCategory(expense.getCategory());
+				old_exp.get().setDate(expense.getDate());
+				old_exp.get().setMethod(expense.getMethod());
+				old_exp.get().setNotes(expense.getNotes());
+				old_exp.get().setReason(expense.getReason());
+				old_exp.get().setRecipient(expense.getRecipient());
+				old_exp.get().setUser(user.get());
+			}
+			return expenseMapper.convertToVO(expenseRepo.save(old_exp.get()));
 		}
-		return expenseMapper.convertToVO(expenseRepo.save(expenseMapper.convertToEntity(old_exp.get())));
+		return new ExpenseVO();
 	}
 	
 	public void delete(Long id) {
