@@ -16,7 +16,7 @@ public class Expense {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private User user_id;
+	private User user;
 	
 	private String recipient;
 	
@@ -37,7 +37,7 @@ public class Expense {
 	
 	public Expense(
 		Long id,
-		User user_id,
+		User user,
 		String recipient,
 		double amount,
 		String reason,
@@ -47,7 +47,7 @@ public class Expense {
 		String notes
 			) {
 		this.id = id;
-		this.user_id = user_id;
+		this.user = user;
 		this.recipient = recipient;
 		this.amount = amount;
 		this.reason = reason;
@@ -74,15 +74,15 @@ public class Expense {
 	/**
 	 * @return the user_id
 	 */
-	public User getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
 	/**
 	 * @param user_id the user_id to set
 	 */
-	public void setUser_id(User user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	/**

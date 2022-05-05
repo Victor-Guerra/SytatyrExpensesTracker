@@ -1,5 +1,6 @@
 package mx.tec.com.vo;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.validation.constraints.Email;
@@ -18,14 +19,17 @@ public class UserVO {
 	@NotBlank(message = "User name is mandatory.")
 	private String name;
 	
+	private List<ExpenseVO> user_expenses;
+	
 	public UserVO() {
 	}
 	
-	public UserVO(Long id, String email, String password, String name) {
+	public UserVO(Long id, String email, String password, String name, List<ExpenseVO> user_expenses) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.name = name;
+		this.user_expenses = user_expenses;
 	}
 
 	/**
@@ -100,5 +104,19 @@ public class UserVO {
 		UserVO other = (UserVO) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
 				&& Objects.equals(password, other.password);
+	}
+
+	/**
+	 * @return the user_expenses
+	 */
+	public List<ExpenseVO> getUser_expenses() {
+		return user_expenses;
+	}
+
+	/**
+	 * @param user_expenses the user_expenses to set
+	 */
+	public void setUser_expenses(List<ExpenseVO> user_expenses) {
+		this.user_expenses = user_expenses;
 	}
 }

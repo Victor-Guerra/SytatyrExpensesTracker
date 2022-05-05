@@ -13,6 +13,8 @@ public class ExpenseVO {
 
 	private Long id;
 	
+	private Long user_id;
+	
 	@NotBlank(message = "Recipient of the money is mandatory.")
 	private String recipient;
 	
@@ -38,6 +40,7 @@ public class ExpenseVO {
 	
 	public ExpenseVO(
 			Long id,
+			//Long user_id,
 			String recipient,
 			double amount,
 			String reason,
@@ -47,6 +50,7 @@ public class ExpenseVO {
 			String notes
 			) {
 		this.id = id;
+		//this.user_id = user_id;
 		this.recipient = recipient;
 		this.amount = amount;
 		this.reason = reason;
@@ -170,7 +174,7 @@ public class ExpenseVO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, category, date, id, method, notes, reason, recipient);
+		return Objects.hash(amount, category, date, id, method, notes, reason, recipient, user_id);
 	}
 
 	@Override
@@ -185,6 +189,16 @@ public class ExpenseVO {
 		return Objects.equals(amount, other.amount) && Objects.equals(category, other.category)
 				&& Objects.equals(date, other.date) && Objects.equals(id, other.id)
 				&& Objects.equals(method, other.method) && Objects.equals(notes, other.notes)
-				&& Objects.equals(reason, other.reason) && Objects.equals(recipient, other.recipient);
+				&& Objects.equals(reason, other.reason) && Objects.equals(recipient, other.recipient)
+				&& Objects.equals(user_id, other.user_id);
 	}
+
+	public Long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+	
 }

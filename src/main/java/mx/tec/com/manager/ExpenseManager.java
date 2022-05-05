@@ -10,20 +10,25 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import mx.tec.com.dao.ExpenseDAO;
+import mx.tec.com.dao.UserDAO;
 import mx.tec.com.vo.ExpenseVO;
+import mx.tec.com.vo.UserVO;
 
 @Service
 public class ExpenseManager {
 
 	@Resource
 	private ExpenseDAO expense_dao;
+	@Resource 
+	private UserDAO user_dao;
 	
-	public ExpenseVO addExpense(ExpenseVO expense) {
-		return expense_dao.save(expense);
+	public ExpenseVO addExpense(ExpenseVO expense, Long user_id) {
+		UserVO u = user_dao.findUserById(user_id);
+		return expense_dao.save(expense, u);
 	}
 	
-	public void updateExpense(ExpenseVO expense) {
-		expense_dao.update(expense);
+	public ExpenseVO updateExpense(ExpenseVO expense, Long id) {
+		return expense_dao.update(expense, id);
 	}
 	
 	public void deleteExpense(Long id) {
@@ -36,15 +41,18 @@ public class ExpenseManager {
 	
 	public List<ExpenseVO> viewExpensesToday(Long user_id) {
 		Date today = Date.from(Instant.now());
-		return expense_dao.findIfMonth(user_id, today);
+		UserVO user = user_dao.findUserById(user_id);
+		return expense_dao.findIfMonth(user, today);
 	}
 	
 	public List<ExpenseVO> viewExpensesMonth(Long user_id) {
 		Date today = Date.from(Instant.now());
-		return expense_dao.findIfDay(user_id, today);
+		UserVO user = user_dao.findUserById(user_id);
+		return expense_dao.findIfDay(user, today);
 	}
 	
 	public List<ExpenseVO> viewExpenses(Long user_id) {
-		return expense_dao.findByUserId(user_id);
+		UserVO user = user_dao.findUserById(user_id);
+		return expense_dao.findByUserId(user);
 	}
 }

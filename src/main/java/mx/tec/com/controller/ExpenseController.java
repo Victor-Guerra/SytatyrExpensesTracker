@@ -2,6 +2,7 @@ package mx.tec.com.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.Min;
@@ -27,7 +28,7 @@ import mx.tec.com.vo.ExpenseVO;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/")
+@RequestMapping("/expense")
 @Validated
 public class ExpenseController {
 	//private static final Logger log = LoggerFactory.getLogger(Controller.class);
@@ -38,42 +39,45 @@ public class ExpenseController {
 	@Resource
 	private ExpenseManager expense_manager;
 	
-	@PostMapping("/expense")
-	public ResponseEntity<ExpenseVO> addExpense(@RequestBody ExpenseVO expense) {
-		return new ResponseEntity<>(expense_manager.addExpense(expense), HttpStatus.OK);
+	@PostMapping("/{user_id}")
+	public ResponseEntity<ExpenseVO> addExpense(@RequestBody ExpenseVO expense, @PathVariable(value = "user_id") @Min(value=0, message="User id must be positive.")Long user_id) {
+		return new ResponseEntity<>(expense_manager.addExpense(expense, user_id), HttpStatus.OK);
 	}
 	
-	@PutMapping("/expense")
-	public ResponseEntity<String> updateExpense(@RequestBody ExpenseVO expense) {
-		
-		return ResponseEntity.ok("obo");
+	@PutMapping("/{id}")
+	public ResponseEntity<ExpenseVO> updateExpense(@RequestBody ExpenseVO expense,  @PathVariable(value = "id") @Min(value=0, message="Expense id must be positive.") Long id) {
+		return new ResponseEntity<>(expense_manager.updateExpense(expense, id), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/expense/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteExpense(@PathVariable(value = "id") @Min(value = 0, message="Expense id must be positive.") Long id) {
-		
-		return ResponseEntity.ok("obo");
+		expense_manager.deleteExpense(id);
+		return new ResponseEntity<>("Expense with id: " + id + " has been deleted.", HttpStatus.OK);
 	}
 	
-	@GetMapping("/expense/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<ExpenseVO> viewExpense(@PathVariable(value = "id") @Min(value = 0, message="Expense id must be positive.") Long id) {
-		
-		return new ResponseEntity<>(new ExpenseVO(), HttpStatus.OK);
+		Optional<ExpenseVO> exp = expense_manager.viewExpense(id);
+		if (exp.isEmpty()) {
+			return new ResponseEntity<>(new ExpenseVO(), HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<>(exp.get(), HttpStatus.OK);	
+		}
 	}
 	
-	@GetMapping("/expense/day/{user_id}")
+	@GetMapping("/day/{user_id}")
 	public ResponseEntity<List<ExpenseVO>> viewExpensesToday(@PathVariable(value = "user_id") @Min(value = 0, message="User id must be positive.") Long user_id) {
 		
 		return new ResponseEntity<>(Arrays.asList(new ExpenseVO()), HttpStatus.OK);
 	}
 	
-	@GetMapping("/expense/month/{user_id}")
+	@GetMapping("/month/{user_id}")
 	public ResponseEntity<List<ExpenseVO>> viewExpensesMonth(@PathVariable(value = "user_id") @Min(value = 0, message="User id must be positive.") Long user_id) {
 		
 		return new ResponseEntity<>(Arrays.asList(new ExpenseVO()), HttpStatus.OK);
 	}
 	
-	@GetMapping("/expense/all/{user_id}")
+	@GetMapping("/all/{user_id}")
 	public ResponseEntity<List<ExpenseVO>> viewExpenses(@PathVariable(value = "user_id") @Min(value = 0, message="User id must be positive.") Long user_id) {
 		
 		return new ResponseEntity<>(Arrays.asList(new ExpenseVO()), HttpStatus.OK);
