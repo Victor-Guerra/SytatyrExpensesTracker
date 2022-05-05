@@ -50,7 +50,7 @@ public class ExpenseController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteExpense(@PathVariable(value = "id") @Min(value = 0, message="Expense id must be positive.") Long id) {
+	public ResponseEntity<String> deleteExpense(@PathVariable(value = "id") @Min(value = 0, message="ID of Expense to delete must be positive.") Long id) {
 		expense_manager.deleteExpense(id);
 		return new ResponseEntity<>("Expense with id: " + id + " has been deleted.", HttpStatus.OK);
 	}
