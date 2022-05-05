@@ -75,14 +75,14 @@ public class ExpenseDAO {
 	}
 	
 	public List<ExpenseVO> findIfMonth(UserVO user, Date date) {
-		return expenseMapper.convertToVOList(expenseRepo.findIfMonth(user, date));
+		return expenseMapper.convertToVOList(expenseRepo.findIfMonth(userMapper.convertToEntity(user), date));
 	}
 	
 	public List<ExpenseVO> findIfDay(UserVO user, Date date) {
-		return expenseMapper.convertToVOList(expenseRepo.findIfDay(user, date));
+		return expenseMapper.convertToVOList(expenseRepo.findIfDay(userMapper.convertToEntity(user), date));
 	}
 	
 	public List<ExpenseVO> findByUserId(UserVO user) {
-		return expenseMapper.convertToVOList(expenseRepo.findByUserId(user));
+		return expenseMapper.convertToVOList(expenseRepo.findByUserId(userMapper.convertToEntity(user)));
 	}
 }

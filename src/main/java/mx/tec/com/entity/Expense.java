@@ -1,6 +1,7 @@
 package mx.tec.com.entity;
 
 import java.sql.Date;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -181,5 +182,26 @@ public class Expense {
 	 */
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(amount, category, date, id, method, notes, reason, recipient, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Expense)) {
+			return false;
+		}
+		Expense other = (Expense) obj;
+		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
+				&& Objects.equals(category, other.category) && Objects.equals(date, other.date)
+				&& Objects.equals(id, other.id) && Objects.equals(method, other.method)
+				&& Objects.equals(notes, other.notes) && Objects.equals(reason, other.reason)
+				&& Objects.equals(recipient, other.recipient) && Objects.equals(user, other.user);
 	}
 }

@@ -1,6 +1,7 @@
 package mx.tec.com.entity;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -93,6 +94,24 @@ public class User {
 	 */
 	public void setUser_expenses(List<Expense> user_expenses) {
 		this.user_expenses = user_expenses;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id, name, password, user_expenses);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof User)) {
+			return false;
+		}
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(password, other.password) && Objects.equals(user_expenses, other.user_expenses);
 	}
 	
 	

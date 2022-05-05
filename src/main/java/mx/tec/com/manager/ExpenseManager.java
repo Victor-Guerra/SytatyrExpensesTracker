@@ -42,13 +42,13 @@ public class ExpenseManager {
 	public List<ExpenseVO> viewExpensesToday(Long user_id) {
 		Date today = Date.from(Instant.now());
 		UserVO user = user_dao.findUserById(user_id);
-		return expense_dao.findIfMonth(user, today);
+		return expense_dao.findIfDay(user, today);
 	}
 	
 	public List<ExpenseVO> viewExpensesMonth(Long user_id) {
 		Date today = Date.from(Instant.now());
 		UserVO user = user_dao.findUserById(user_id);
-		return expense_dao.findIfDay(user, today);
+		return expense_dao.findIfMonth(user, today);
 	}
 	
 	public List<ExpenseVO> viewExpenses(Long user_id) {
