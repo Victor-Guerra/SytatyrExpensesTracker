@@ -1,5 +1,7 @@
 package mx.tec.com.dao;
 
+import java.util.Optional;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -20,5 +22,17 @@ public class UserDAO {
 	
 	public UserVO findUserById(Long id) {
 		return userMapper.convertToVO(userRepo.findById(id).get());
+	}
+	
+	public void saveUser(UserVO user) {
+		userRepo.save(userMapper.convertToEntity(user));
+	}
+	
+	public Optional<UserVO> findByEmail(String email) {
+		return userMapper.convertToOptionalVO(userRepo.findByEmail(email));
+	}
+
+	public Optional<UserVO> findByUsername(String username) {
+		return userMapper.convertToOptionalVO(userRepo.findByUsername(username));
 	}
 }

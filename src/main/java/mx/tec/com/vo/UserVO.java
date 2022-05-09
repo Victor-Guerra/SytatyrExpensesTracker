@@ -16,20 +16,24 @@ public class UserVO {
 	@NotBlank(message = "User password is mandatory.")
 	private String password;
 	
-	@NotBlank(message = "User name is mandatory.")
+	@NotBlank(message = "Name is mandatory.")
 	private String name;
 	
-	private List<ExpenseVO> user_expenses;
+	@NotBlank(message = "Username is mandatory.")
+	private String username;
+	
+	private List<ExpenseVO> userExpenses;
 	
 	public UserVO() {
 	}
 	
-	public UserVO(Long id, String email, String password, String name, List<ExpenseVO> user_expenses) {
+	public UserVO(Long id, String email, String password, String name, String username, List<ExpenseVO> userExpenses) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.name = name;
-		this.user_expenses = user_expenses;
+		this.userExpenses = userExpenses;
+		this.username = username;
 	}
 
 	/**
@@ -109,14 +113,14 @@ public class UserVO {
 	/**
 	 * @return the user_expenses
 	 */
-	public List<ExpenseVO> getUser_expenses() {
-		return user_expenses;
+	public List<ExpenseVO> getUserExpenses() {
+		return userExpenses;
 	}
 
 	/**
 	 * @param user_expenses the user_expenses to set
 	 */
-	public void setUser_expenses(List<ExpenseVO> user_expenses) {
-		this.user_expenses = user_expenses;
+	public void setUserExpenses(List<ExpenseVO> userExpenses) {
+		this.userExpenses = userExpenses;
 	}
 }

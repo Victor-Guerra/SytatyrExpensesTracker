@@ -1,5 +1,6 @@
 package mx.tec.com.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,23 +10,53 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class User {
+public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 633250300264648920L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	private String email;
 	
+	@NotNull
 	private String password;
 	
+	@NotNull
 	private String name;
 	
+	@NotNull
+	private String username;
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Expense> user_expenses;
+	private List<Expense> userExpenses;
 
+	public User() {	}
+	
+	public User(Long id,
+			@NotNull String email,
+			@NotNull String password,
+			@NotNull String name,
+			@NotNull String username,
+			@NotNull List<Expense> userExpenses) {
+		super();
+		
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.username = username;
+		this.userExpenses = userExpenses;
+
+	}
 	/**
 	 * @return the id
 	 */
@@ -85,20 +116,20 @@ public class User {
 	/**
 	 * @return the user_expenses
 	 */
-	public List<Expense> getUser_expenses() {
-		return user_expenses;
+	public List<Expense> getUserExpenses() {
+		return userExpenses;
 	}
 
 	/**
 	 * @param user_expenses the user_expenses to set
 	 */
-	public void setUser_expenses(List<Expense> user_expenses) {
-		this.user_expenses = user_expenses;
+	public void setUserExpenses(List<Expense> user_expenses) {
+		this.userExpenses = user_expenses;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, id, name, password, user_expenses);
+		return Objects.hash(email, id, name, password, userExpenses, username);
 	}
 
 	@Override
@@ -111,7 +142,15 @@ public class User {
 		}
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(password, other.password) && Objects.equals(user_expenses, other.user_expenses);
+				&& Objects.equals(password, other.password) && Objects.equals(userExpenses, other.userExpenses) && Objects.equals(username, other.username);
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	
