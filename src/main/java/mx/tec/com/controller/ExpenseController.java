@@ -56,10 +56,10 @@ public class ExpenseController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ExpenseVO> viewExpense(@PathVariable(value = "id") @Min(value = 0, message="Expense id must be positive.") Long id) {
 		Optional<ExpenseVO> exp = expense_manager.viewExpense(id);
-		if (exp.isEmpty()) {
-			return new ResponseEntity<>(new ExpenseVO(), HttpStatus.NOT_FOUND);
-		}else {
+		if (exp.isPresent()) {
 			return new ResponseEntity<>(exp.get(), HttpStatus.OK);	
+		}else {
+			return new ResponseEntity<>(new ExpenseVO(), HttpStatus.NOT_FOUND);
 		}
 	}
 	
