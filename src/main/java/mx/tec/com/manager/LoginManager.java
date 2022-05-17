@@ -12,7 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import mx.tec.com.config.CustomUserDetailsService;
 import mx.tec.com.util.JsonWebTokenUtil;
+import mx.tec.com.util.SecurityHelper;
 import mx.tec.com.vo.CredentialsVO;
 import mx.tec.com.vo.JsonWebTokenVO;
 
@@ -34,6 +36,9 @@ public class LoginManager {
 	/**A Reference to the Json Web Token Util*/
 	@Resource
 	JsonWebTokenUtil jwtTokenUtil;
+	
+	@Resource
+	private SecurityHelper encoder;
 	
 	/**
 	 * Method to authenticate and generate token with the credentials

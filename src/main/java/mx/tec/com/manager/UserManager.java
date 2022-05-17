@@ -22,12 +22,14 @@ public class UserManager {
 	private SecurityHelper encoder;
 	
 	public Optional<UserVO> addUser(UserVO user) {
-		if(userDao.findByEmail(user.getEmail()).isPresent()){
+		Optional<UserVO> founduser = userDao.findByUsername(user.getUsername());
+		
+		if(founduser.isPresent()){
+			return Optional.empty();
+		} else {
 			user.setPassword(encoder.hashPassword(user.getPassword()));
 			userDao.saveUser(user);
 			return Optional.of(user);
-		} else {
-			return Optional.empty();
 		}
 	}
 	
