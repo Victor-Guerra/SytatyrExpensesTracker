@@ -123,4 +123,18 @@ public class UserVO {
 	public void setUserExpenses(List<ExpenseVO> userExpenses) {
 		this.userExpenses = userExpenses;
 	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }
