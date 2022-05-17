@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import mx.tec.com.config.CustomUserDetailsService;
 import mx.tec.com.util.JsonWebTokenUtil;
 import mx.tec.com.util.SecurityHelper;
 import mx.tec.com.vo.CredentialsVO;

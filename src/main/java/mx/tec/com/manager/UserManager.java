@@ -3,6 +3,7 @@ package mx.tec.com.manager;
 import java.util.Optional;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityExistsException;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,15 @@ public class UserManager {
 	@Resource
 	private SecurityHelper encoder;
 	
+	public Optional<UserVO> getUser(final long id) {
+		return Optional.of(userDao.findUserById(id));
+	}
+	
 	public Optional<UserVO> addUser(UserVO user) {
 		Optional<UserVO> founduser = userDao.findByUsername(user.getUsername());
 		
 		if(founduser.isPresent()){
-			return Optional.empty();
+			throw new EntityExistsException("User already exists: " + user.getUsername());
 		} else {
 			user.setPassword(encoder.hashPassword(user.getPassword()));
 			userDao.saveUser(user);
@@ -35,10 +40,12 @@ public class UserManager {
 	
 	public Long findUserIdByUsername(String username) {
 		Optional<UserVO> foundUser = userDao.findByUsername(username);
+		
+		UserVO userfound = new UserVO();
 		if (foundUser.isPresent()) {
-			return foundUser.get().getId();
-		} else {
-			return (long) -1;
+			userfound = foundUser.get();
 		}
+		
+		return userfound.getId();
 	}
 }

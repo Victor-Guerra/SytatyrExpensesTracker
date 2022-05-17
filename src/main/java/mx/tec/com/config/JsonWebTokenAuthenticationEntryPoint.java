@@ -16,6 +16,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class JsonWebTokenAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 707312688420669037L;
+
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {

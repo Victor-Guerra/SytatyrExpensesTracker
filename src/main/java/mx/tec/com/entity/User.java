@@ -1,6 +1,7 @@
 package mx.tec.com.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,8 +37,8 @@ public class User implements Serializable{
 	@NotNull
 	private String username;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Expense> userExpenses;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Expense> userExpenses = new ArrayList<>();
 
 	public User() {	}
 	

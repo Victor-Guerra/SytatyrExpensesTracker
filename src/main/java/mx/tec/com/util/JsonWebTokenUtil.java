@@ -21,6 +21,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class JsonWebTokenUtil implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1284124287501693667L;
+
 	/**Set of token validity*/
 	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 	

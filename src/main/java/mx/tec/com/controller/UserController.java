@@ -42,28 +42,24 @@ public class UserController {
 	@PostMapping("/add")
 	public ResponseEntity<UserVO> addUser(@RequestBody UserVO user) {
 		log.info("User being created {}", user.getUsername());
-		Optional<UserVO> saved = userManager.addUser(user);
-		if (saved.isPresent()) {
-			return new ResponseEntity<> (saved.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<> (new UserVO(), HttpStatus.BAD_REQUEST);	
-		}
+		return new ResponseEntity<> (userManager.addUser(user).get(), HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<JsonWebTokenVO> createAuthenticationToken(@RequestBody CredentialsVO credentials){
+	public ResponseEntity<LoginResponse> createAuthenticationToken(@RequestBody CredentialsVO credentials){
 		log.info("Authenticating user {}", credentials.getUsername());
-		//JsonWebTokenVO webtoken = loginManager.authenticate(credentials);
-		return ResponseEntity.ok(loginManager.authenticate(credentials));
+		JsonWebTokenVO webtoken = loginManager.authenticate(credentials);
+		long userId = userManager.findUserIdByUsername(credentials.getUsername());
+		return ResponseEntity.ok(new LoginResponse(webtoken, userId));
 	}
 	
-	/*
+	
 	@ExceptionHandler(AuthenticationException.class)
 	public ResponseEntity<String> onSecurityException (final AuthenticationException ae) {
 		log.error("Invalid Credentials ", ae);
 		return new ResponseEntity<>(ae.getMessage(), HttpStatus.UNAUTHORIZED);
 
 	}
-	*/
+	
 	
 }

@@ -1,5 +1,6 @@
 package mx.tec.com.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -8,10 +9,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Expense {
+public class Expense implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6060749632245782029L;
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -19,16 +26,22 @@ public class Expense {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
+	@NotNull
 	private String recipient;
 	
+	@NotNull
 	private double amount;
 	
+	@NotNull
 	private String reason;
 	
+	@NotNull
 	private String category;
 	
+	@NotNull
 	private String method;
 	
+	@NotNull
 	private Date date;
 	
 	private String notes;
