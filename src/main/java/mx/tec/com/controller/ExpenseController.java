@@ -40,8 +40,7 @@ public class ExpenseController {
 	@PostMapping("/{user_id}")
 	public ResponseEntity<ExpenseVO> addExpense(@RequestBody ExpenseVO expense, @PathVariable(value = "user_id") @Min(value=0, message="User id must be positive.")Long user_id) {
 		return new ResponseEntity<>(expense_manager.addExpense(expense, user_id), HttpStatus.OK);
-	}
-	
+	}	
 	@PutMapping("/{id}")
 	public ResponseEntity<ExpenseVO> updateExpense(@RequestBody ExpenseVO expense,  @PathVariable(value = "id") @Min(value=0, message="Expense id must be positive.") Long id) {
 		return new ResponseEntity<>(expense_manager.updateExpense(expense, id), HttpStatus.OK);

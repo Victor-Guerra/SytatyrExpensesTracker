@@ -43,9 +43,9 @@ public class UserManager {
 		
 		UserVO userfound = new UserVO();
 		if (foundUser.isPresent()) {
-			userfound = foundUser.get();
+			return foundUser.get().getId();
 		}
 		
-		return userfound.getId();
+		return (long)-1;
 	}
 }

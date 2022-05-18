@@ -8,6 +8,10 @@ import java.io.Serializable;
  */
 public class JsonWebTokenVO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7699880112770956479L;
 	/** JsonWebToken token */
 	private final String token;
 
